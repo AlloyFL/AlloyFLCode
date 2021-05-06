@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>The Alloy Analyzer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<STYLE TYPE="text/css">
+
+h1 {
+	font-family: 'Helvetica';
+	border-bottom: 3px solid #ff6766;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+a {
+	color: #1799d6;	
+	font-family: 'Helvetica';
+}
+
+a:hover {
+	color: #1799d6;
+}
+
+p {
+	color: #282B2B;
+	font-family: 'Helvetica';
+	font-size: 12px;
+	line-height: 13px;
+}
+
+h2 {
+	font-family: 'verdana';
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 13px;
+	text-align: left;
+	margin-left: 1cm;
+	padding-left: 0.5cm;
+	border-left: 3px solid #b1b3b5;
+}
+
+ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+
+h3 {
+	font-family: 'Helvetica';
+	border-bottom: 1px dashed #ff6766;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+
+h4 {
+	font-family: 'Helvetica';
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 25px;
+	margin: 5px;
+	text-align: center;
+	color: 668899;
+}
+
+h5 {
+    border-bottom: 1px dashed #8c8b8b;
+}
+
+</STYLE>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h4>AlloyFL Tutorial</font><font color=#536d7a><br><strong>Motivation</strong></h4>
+
+<h1>Motivation for AlloyFL</h1>
+<p>Writing correct declarative models that represent non-trivial properties is not easy, especially for practitioners who are not well-versed with the intricate syntax and semantics of declarative languages. Case in point, Daniel Jackson, the inventor of Alloy, has pointed out in his ICSE keynote that declarative specifications can be "maddening harder to learn and even harder to debug" and the "unsat coreis not enough". This motivates us to develop fault localization techniques for declarative models written in Alloy. </p>
+<h5></h5>
+<p>AlloyFL looks to adapt fault localization techniques for imperative languages (Java, C, C++) to Alloy's declarative execution environment. In particular, for an Alloy execution, all executed constraints are considered at the same time and produce any number of instances as output. Furthermore, a single line in an Alloy model can represent a complex specification, compared to a traditional line of code. To account for these changes, (1) we adapt a combination of traditional coverage-based fault localization and mutation-based fault localization techniques and (2) we localize faults to abstract syntax tree (AST) nodes rather than lines of code.</p>
+</body>
+</html>

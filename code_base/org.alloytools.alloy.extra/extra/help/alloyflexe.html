@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>AlloyFL Tutorial</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<STYLE TYPE="text/css">
+<!--
+P { margin-top: 5px; margin-bottom:5px; }
+-->
+h1 {
+	font-family: 'Helvetica';
+	border-bottom: 3px solid #ff6766;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+a {
+	color: #1799d6;	
+	font-family: 'Helvetica';
+}
+
+a:hover {
+	color: #1799d6;
+}
+
+p {
+	color: #282B2B;
+	font-family: 'Helvetica';
+	font-size: 12px;
+	line-height: 13px;
+}
+
+h2 {
+	font-family: 'verdana';
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 13px;
+	text-align: left;
+	margin:0;
+	margin-left: 1cm;
+	padding-left: 0.5cm;
+	border-left: 3px solid #b1b3b5;
+}
+
+ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+
+h3 {
+	font-family: 'Helvetica';
+	border-bottom: 1px dashed #ff6766;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+
+h4 {
+	font-family: 'Helvetica';
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 25px;
+	margin: 5px;
+	text-align: center;
+	color: 668899;
+}
+
+h5 {
+    border-bottom: 1px dashed #8c8b8b;
+}
+
+</STYLE>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h4>AlloyFL Tutorial</font><font color=#536d7a><br><strong>AlloyFL Execution</strong></h4>
+
+<h3> How to execute AlloyFL?</h3>
+<p>Select the "AlloyFL" button to start an AlloyFL execution. The AlloyFL drop down menu allows you to customize (1) the weight between coverage-based and mutation-based fault localization and (2) the suspiciousness score.
+<br>
+The weight ranges from 0 to 1. Users can select in increments of 0.1. <br>
+For suspciousness formulas, the user is presented with a selectable list with our 5 supported formulas.</p>
+
+<h3>Output</h3>
+<p>The AlloyFL tab reports a list of suspicious locations form most to least suspicious. To start, all suspicious locations are highlighted in the original model. Deep red means a location is very suspicious while yellow means a location is only slightly suspicious. For the ranked list, for each location, you can view: (1) the formula, (2) the score, and (3) a highlight of the AST node in the original model. Viewing an individual AST node highlight removes all other highlighting from the model. <br><br>If the user desires, there is a text prompt on the main page to allow the user to re-highlight the entire model.</p>
+
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>AlloyFL Tutorial</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<STYLE TYPE="text/css">
+<!--
+P { margin-top: 5px; margin-bottom:5px; }
+-->
+h1 {
+	font-family: 'Helvetica';
+	border-bottom: 3px solid #ff6766;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+a {
+	color: #1799d6;	
+	font-family: 'Helvetica';
+}
+
+a:hover {
+	color: #1799d6;
+}
+
+p {
+	color: #282B2B;
+	font-family: 'Helvetica';
+	font-size: 12px;
+	line-height: 13px;
+}
+
+h2 {
+	font-family: 'verdana';
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 13px;
+	text-align: left;
+	margin-left: 1cm;
+	padding-left: 0.5cm;
+	border-left: 3px solid #b1b3b5;
+}
+
+ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 12px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+
+h3 {
+	font-family: 'Helvetica';
+	border-bottom: 1px dashed #ff6766;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 17px;
+	text-align: left;
+	color: #6d6a6a;
+}
+
+h4 {
+	font-family: 'Helvetica';
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 25px;
+	margin: 5px;
+	text-align: center;
+	color: 668899;
+}
+
+h5 {
+    border-bottom: 1px dashed #8c8b8b;
+}
+
+</STYLE>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h4>AlloyFL Tutorial</font><font color=#536d7a><br><strong>Setting up a Fault Localization Problem</strong></h4>
+
+<h3>What is a faulty Alloy model?</h3>
+<p>AlloyFL considers a fault model to be one in which at least one AUnit test case fails. An AUnit test case is a pair (valuation, command) where:<br>
+<b>&nbsp&nbsp&nbsp&nbsp A valuation is:</b> an assignment of values to the <em>sets</em> and <em>relations</em> of the model.<br>
+<b>&nbsp&nbsp&nbsp&nbsp A command is:</b> any valid Alloy command over the model.<br>
+More information about defining AUnit test cases can be found in the AUnit tutorial.</p>
+
+<h3>Hybrid Fault Localization</h3>
+<p>
+Our fault localization techniques applies a combination of coverage-based and mutation-based fault localization. The weight applied to one versus the other is set by the user. Given an AST node, AlloyFL computes a score Scoverage and score Smutation. AlloyFL computes the weighted sum. If no mutation applies to a node, AlloyFL uses score Scoverage. The intuition is that mutation-based fault localization sometimes performs badly for omission errors in which case coverage-based fault localization performs relatively well. Thus, AlloyFL benefitsfrom both coverage-based and mutation-based fault localization.</p>
+
+<h3>Suspiciousness Formulas</h3>
+<p>AlloyFL supports the following suspiciousness formula:</p>
+<p><br>
+1. Tarantula (J. A. Jones and M. J. Harrold. Empirical evaluation ofthe tarantula automatic fault-localization technique. InASE, 2005.) <br>
+2. Ochiai (R. Abreu, P. Zoeteweij, R. Golsteijn, and A. J. C. vanGemund. A practical evaluation of spectrum-based faultlocalization.JSS, 2009.) <br>
+3. Op2 (L. Naish, H. J. Lee, and K. Ramamohanarao. A modelfor spectra-based software diagnosis.TSE, 2011.) <br>
+4. Barinel (R.  Abreu, P.  Zoeteweij,  and  A.  J.  Van  Gemund.Spectrum-based multiple fault localization. InASE, 2009.) <br>
+5. DStar (W. E. Wong, V. Debroy, R. Gao, and Y. Li. The DStarmethod for effective software fault localization.IEEETransactions on Reliability, 2014.) <br>
+</p>
+<p>Suspiciousness formulas assign a suspiciousness score to each AST node in the Alloy model. AlloyFL will present a ranked list of AST nodes to the user from most to least suspicious.</p>
+
+<h3>Coverage-Based Fault Localization</h3>
+<p>
+Since Alloy does not have control-flow and execution traces, for a given test, every code element in the same paragraph will be either executed together or not executed at all. This means nodes declared in the same paragraph share the same suspiciousness score. Our coverage-based fault localization uses a static analyzer which analyzes the entire AST and binds a variable usage a predicate/function call to its signature or predicate/function declaration, respectively. The static analyzer is able to find all Alloy paragraphs transitively used by a test, but it ignores dependencies that are never used. Our coverage-based fault localization computes a suspiciousness score for each Alloy paragraph based on the number of passing/failing tests that cover it and a formulalisted above. Finally, all paragraphs are ranked in descending order of suspiciousness score. In case of a tie, we prioritize the paragraph with a smaller number of AST nodes.
+</p>
+
+<h3>Mutation-Based Fault Localization</h3>
+<p>
+Mutation-based fault localization starts by mutating the original Alloy model. The suspiciousness score is tied to whichever AST node in the original model is mutated. Specifically, AlloyFL iterates over each node n in the original model (M). If n is not covered by any failing test, then AlloyFL skips it. For each n covered by a failing test, AlloyFL tries to apply every mutation operator to the node, one at a time. If the mutation operator is not applicable, it is skipped. Otherwise, AlloyFL mutates M to M’. If M’ leads to a compilation error or is equivalent to M, then AlloyFL skips M’. Otherwise, AlloyFL runs that test suite against the mutant M’and computes the suspiciousness score of the mutant based on the formula selcted by the user.
+<br><br>
+<b>Note:</b> Details about mutation testing in Alloy can be found here: https://github.com/kaiyuanw/MuAlloy
+</p>
+
+</body>
+</html>
